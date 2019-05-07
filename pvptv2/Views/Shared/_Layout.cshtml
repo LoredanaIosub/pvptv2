@@ -6,24 +6,63 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
+    <style>
+        li:hover {
+            background-color: lavender;
+            border-radius: 5%;
+        }
+
+        li {
+            font-family: 'Comic Sans MS', Times, serif;
+            font-size: 17px;
+        }
+
+        .dropdown-toggle .dropdown-menu .dropdown:hover {
+            background-color: #E6E6FA;
+            border-radius: 5%;
+            padding: 5px 5px;
+            margin: 10px 10px;
+        }
+
+        a.dropdown-toggle:hover {
+            background-color: lavender;
+            border-radius: 5%;
+        }
+    </style>
+
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div style="background-color:white;" class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
-            <div class="navbar-header">
+            <div style="margin:0px 150px 0px 0px;" class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <img src="https://i.imgur.com/dQpMLc4.jpg" alt="W3Schools.com"> <!--logo Brasov-->
+                @*@Html.ActionLink("Welcome to Brasov", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li style="margin:10px 20px; padding:5px 5px;">@Html.ActionLink("Acasă", "Index", "Home")</li>
+                    <li style="margin:10px 20px; padding:5px 5px;">@Html.ActionLink("Despre", "About", "Home")</li>
+                    <li style="margin:10px 20px; padding:5px 5px;">@Html.ActionLink("Călătorie", "Travel", "Home")</li>
+
+                    <li class="dropdown" style="margin-top:10px; padding:5px 5px;">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Activități<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Relaxare", "Relax", "Home")</li>
+                            <li>@Html.ActionLink("Restaurante", "Eat", "Home")</li>
+                            <li>@Html.ActionLink("Play", "Play", "Home")</li>
+                        </ul>
+                    </li>
+
+                    <li style="margin:10px 20px; padding:5px 5px;">@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
+
+
             </div>
         </div>
     </div>
@@ -31,7 +70,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p style="text-align:left;">&copy; @DateTime.Now.Year - Platformă versatilă pentru turiști</p>
         </footer>
     </div>
 
