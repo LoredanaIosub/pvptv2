@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -16,6 +18,13 @@ namespace pvptv2
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            SqlDependency.Start(ConfigurationManager.ConnectionStrings["NotificationsConnection"].ConnectionString);
+        }
+
+        protected void Acpplication_End()
+        {
+            SqlDependency.Stop(ConfigurationManager.ConnectionStrings["NotificationsConnection"].ConnectionString);
         }
     }
 }

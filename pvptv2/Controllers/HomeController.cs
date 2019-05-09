@@ -1,5 +1,9 @@
-﻿using System;
+﻿using pvptv2.Hubs;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -81,6 +85,53 @@ namespace pvptv2.Controllers
             ViewBag.Message = "Parerea ta!";
 
             return View();
+        }
+
+        public JsonResult Get()
+        {
+
+            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["NotificationsConnection"].ConnectionString))
+            {
+                connection.Open();
+                using (SqlCommand command = new SqlCommand(@"SELECT [Data],[Ora],[Eveniment],[Titlu],[Locație] FROM [dbo].[NotifEvents]", connection))
+                {
+                    // Make sure the command object does not already have
+                    // a notification object associated with it.
+                    command.Notification = null;
+
+                    SqlDependency dependency = new SqlDependency(command);
+                    dependency.OnChange += new OnChangeEventHandler(dependency_OnChange);
+
+                    if (connection.State == ConnectionState.Closed)
+                        connection.Open();
+
+                    SqlDataReader reader = command.ExecuteReader();
+                    var listEvents = new List<string>();
+                    while (reader.Read())
+                    {
+                        listEvents.Add(reader[0].ToString());
+                    }
+                    reader.Close();
+
+                    //var listNotif = reader.Cast<IDataRecord>()
+                    //        .Select(x => new
+                    //        {
+                    //            Data = (int)x["Data"],
+                    //            Ora = (string)x["Ora"],
+                    //            Eveniment = (string)x["Eveniment"],
+                    //            Titlu = (string)x["Titlu"],
+                    //            Locație = (string)x["Locație"],
+                    //        }).ToList();
+
+                    return Json(new { listNotif = listEvents }, JsonRequestBehavior.AllowGet);
+
+                }
+            }
+        }
+
+        private void dependency_OnChange(object sender, SqlNotificationEventArgs e)
+        {
+            NotifHub.Show();
         }
     }
 }

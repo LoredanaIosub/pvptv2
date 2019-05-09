@@ -77,5 +77,54 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/signalr")
+        @Scripts.Render("/signalr/hubs")
+    }
+    <script src="~/Scripts/jquery.signalR-2.4.1.min.js"></script>
+
+    <script src="~/signalr/hubs" type="text/javascript"></script>
+    <script type="text/javascript">
+
+        $(function () {
+
+            var notif = $.connection.notifHub;
+
+            notif.Client.displaypvptv2 = function () {
+                getData();
+            };
+
+            $.connection.hub.start();
+            getData();
+        });
+
+        function getData() {
+            debugger;
+            var $tbl = $("tblInfo");
+            $.ajax({
+                url: $("#Get").val(),
+                type: 'GET',
+                datatype: 'json',
+                success: function (data) {
+                    $tbl.empty();
+
+                    $.each(data.listNotif, function (i, model) {
+                        $tbl.append
+                        {
+                            '<tr>' +
+                                '<td>' + model.Data + '</td>' +
+                                '<td>' + model.Ora + '</td>' +
+                                '<td>' + model.Eveniment + '</td>' +
+                                '<td>' + model.Titlu + '</td>' +
+                                '<td>' + model.Locație + '</td>' +
+                                '<tr>'
+                        };
+                    });
+                }
+
+            });
+        }
+    </script>
 </body>
 </html>
