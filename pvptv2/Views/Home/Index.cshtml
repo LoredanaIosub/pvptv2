@@ -65,17 +65,13 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-4" style="background-color:lavender; padding:5px 5px; margin:10px auto; text-align:center;">
-                    @Html.ActionLink(" ", "Events", "Home", new { @class = "glyphicon glyphicon-calendar" })
-                    @*@Html.ActionLink("Evenimente", "Events", "Home")*@
+                    <a href="/Event/Index" class="glyphicon glyphicon-calendar"></a>
                 </div>
                 <div class="col-sm-4" style="background-color:lavenderblush; padding:5px 5px; margin:10px auto; text-align:center;">
                     @Html.ActionLink(" ", "News", "Home", new { @class = "glyphicon glyphicon-bell" })
-                    @*@Html.ActionLink("Noutati", "News", "Home")*@
                 </div>
                 <div class="col-sm-4" style="background-color:lavender; padding:5px 5px; margin:10px auto; text-align:center;">
-                    @*@Html.ActionLink("Parerea", "Index", "User")*@
-                    @Html.ActionLink(" ", "Index", "Tourists", new { @class = "glyphicon glyphicon-envelope" })
-                    @*@Html.ActionLink("Parerea ta!", "Opinion", "Home")*@
+                    <a href="/Tourists/Index" class = "glyphicon glyphicon-envelope"></a>
                 </div>
             </div>
         </div>

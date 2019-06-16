@@ -8,10 +8,11 @@ namespace pvptv2.Hubs
 {
     public class NotifHub : Hub
     {
-        public static void Show()
+        public static void Send()
         {
             IHubContext context = GlobalHost.ConnectionManager.GetHubContext<NotifHub>();
-            context.Clients.All.displaypvptv2();
+            //context.Clients.All.displaypvptv2();
+            context.Clients.All.displayStatus();
         }
     }
 }

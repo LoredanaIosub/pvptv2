@@ -1,4 +1,5 @@
 ﻿using pvptv2.Hubs;
+using pvptv2.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -10,10 +11,14 @@ using System.Web.Mvc;
 
 namespace pvptv2.Controllers
 {
+    //[HandleError]
     public class HomeController : Controller
     {
         public ActionResult Index()
         {
+            //trow exception
+            //throw new Exception("This is unhandled exception");
+
             return View();
         }
 
@@ -70,6 +75,15 @@ namespace pvptv2.Controllers
         {
             ViewBag.Message = "Evenimente";
 
+            var notificationList = new List<Notification>{
+                            new Notification() { EventID = 1, EventDate = DateTime.Now, EventName = "John", EventType = "John", EventLocation = "John" } ,
+                            new Notification() { EventID = 2, EventDate = DateTime.Now, EventName = "John", EventType = "John", EventLocation = "John" } ,
+                            new Notification() { EventID = 3, EventDate = DateTime.Now, EventName = "John", EventType = "John", EventLocation = "John" } ,
+                            new Notification() { EventID = 4, EventDate = DateTime.Now, EventName = "John", EventType = "John", EventLocation = "John" }
+                        };
+            // Get the tourists from the database in the real application
+
+            return View(notificationList);
             return View();
         }
 
@@ -87,51 +101,57 @@ namespace pvptv2.Controllers
             return View();
         }
 
-        public JsonResult Get()
-        {
+        //public JsonResult GetNotification()
+        //{
+        //    return Json(NotificationService.GetNotification(), JsonRequestBehavior.AllowGet);
 
-            using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["NotificationsConnection"].ConnectionString))
-            {
-                connection.Open();
-                using (SqlCommand command = new SqlCommand(@"SELECT [Data],[Ora],[Eveniment],[Titlu],[Locație] FROM [dbo].[NotifEvents]", connection))
-                {
-                    // Make sure the command object does not already have
-                    // a notification object associated with it.
-                    command.Notification = null;
+        //}
 
-                    SqlDependency dependency = new SqlDependency(command);
-                    dependency.OnChange += new OnChangeEventHandler(dependency_OnChange);
+        //public JsonResult Get()
+        //{
 
-                    if (connection.State == ConnectionState.Closed)
-                        connection.Open();
+        //    using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["NotificationsConnection"].ConnectionString))
+        //    {
+        //        connection.Open();
+        //        using (SqlCommand command = new SqlCommand(@"SELECT [Data],[Ora],[Eveniment],[Titlu],[Locație] FROM [dbo].[NotifEvents]", connection))
+        //        {
+        //            // Make sure the command object does not already have
+        //            // a notification object associated with it.
+        //            command.Notification = null;
 
-                    SqlDataReader reader = command.ExecuteReader();
-                    var listEvents = new List<string>();
-                    while (reader.Read())
-                    {
-                        listEvents.Add(reader[0].ToString());
-                    }
-                    reader.Close();
+        //            SqlDependency dependency = new SqlDependency(command);
+        //            dependency.OnChange += new OnChangeEventHandler(dependency_OnChange);
 
-                    //var listNotif = reader.Cast<IDataRecord>()
-                    //        .Select(x => new
-                    //        {
-                    //            Data = (int)x["Data"],
-                    //            Ora = (string)x["Ora"],
-                    //            Eveniment = (string)x["Eveniment"],
-                    //            Titlu = (string)x["Titlu"],
-                    //            Locație = (string)x["Locație"],
-                    //        }).ToList();
+        //            if (connection.State == ConnectionState.Closed)
+        //                connection.Open();
 
-                    return Json(new { listNotif = listEvents }, JsonRequestBehavior.AllowGet);
+        //            SqlDataReader reader = command.ExecuteReader();
+        //            var listEvents = new List<string>();
+        //            while (reader.Read())
+        //            {
+        //                listEvents.Add(reader[0].ToString());
+        //            }
+        //            reader.Close();
 
-                }
-            }
-        }
+        //            //var listNotif = reader.Cast<IDataRecord>()
+        //            //        .Select(x => new
+        //            //        {
+        //            //            Data = (int)x["Data"],
+        //            //            Ora = (string)x["Ora"],
+        //            //            Eveniment = (string)x["Eveniment"],
+        //            //            Titlu = (string)x["Titlu"],
+        //            //            Locație = (string)x["Locație"],
+        //            //        }).ToList();
 
-        private void dependency_OnChange(object sender, SqlNotificationEventArgs e)
-        {
-            NotifHub.Show();
-        }
+        //            return Json(new { listNotif = listEvents }, JsonRequestBehavior.AllowGet);
+
+        //        }
+        //    }
+        //}
+
+        //private void dependency_OnChange(object sender, SqlNotificationEventArgs e)
+        //{
+        //    NotifHub.Send();
+        //}
     }
 }

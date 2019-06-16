@@ -14,9 +14,13 @@ namespace pvptv2.Models
 
         public DbSet<Tourist> Tourists { get; set; } //set de entitati
 
+        public DbSet<Notification> Notifications { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
+
+        //public System.Data.Entity.DbSet<pvptv2.Models.Notifications> NotificationServices { get; set; }
     }
 }

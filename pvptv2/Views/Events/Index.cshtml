@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+</head>
+
+<body>
+    <h2>Index</h2>
+    <div>
+        <table class="table-data">
+            <tr>
+                <th>EventID</th>
+                <th>EventDate</th>
+                <th>EventName</th>
+                <th>EventType</th>
+                <th>EventLocation</th>
+            </tr>
+        </table>
+    </div>
+    <script>
+        $(function () {
+            $.get("get_data", {}, function (data) {
+                var row;
+                $.each(data, function (i, v1) {
+                    row += "<tr><td>" + v1.EventID + "</td> <td>" + v1.EventDate + "</td><td>" + v1.EventName + "</td><td>" + v1.EventType + "</td><td>" + v1.EventLocations + "</td></tr>"
+                });
+                $("#tbodata").append(row);
+
+            })
+        })
+    </script>
+</body>
+</html>
+
+

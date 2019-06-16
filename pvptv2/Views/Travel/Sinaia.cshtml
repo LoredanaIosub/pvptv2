@@ -2,6 +2,37 @@
 @{
     ViewBag.Title = "Sinaia";
 }
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
 
-<h2>Sinaia</h2>
+        .hero-image {
+            margin-top: 50px;
+            height: 500px;
+            width: 1100px;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://i.imgur.com/ZoAEPvE.jpg");
+        }
 
+        .hero-text {
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero-image">
+        <div class="hero-text">
+            <h1>Sinaia</h1>
+        </div>
+    </div>
+</body>
+</html>

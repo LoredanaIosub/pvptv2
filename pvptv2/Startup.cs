@@ -1,26 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Data.SqlClient;
+using System.Threading.Tasks;
 using Microsoft.Owin;
 using Owin;
 
+[assembly: OwinStartup(typeof(pvptv2.Startup))]
 
-
-[assembly: OwinStartupAttribute(typeof(pvptv2.Startup))]
 namespace pvptv2
 {
     public class Startup
     {
         public void Configuration(IAppBuilder app)
         {
-            //ConfigureAuth(app);
             app.MapSignalR();
+            // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=316888
         }
-
-        //private void ConfigureAuth(IAppBuilder app)
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 }
